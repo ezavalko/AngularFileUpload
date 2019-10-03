@@ -1,0 +1,39 @@
+
+
+<upload-component></upload-component>
+
+<h1 class="mt-5" id="tableLabel">Files</h1>
+
+<p *ngIf="!fileGroups"><em>Loading...</em></p>
+
+<div *ngFor="let group of fileGroups | async">
+  <h3 class="mt-5">File extension: {{group.extension}}</h3>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="fileGroups">
+    <thead>
+      <tr>
+        <th width="30%">System Name</th>
+        <th width="30%">Upload Name</th>
+        <th width="30%">Uploaded by</th>
+        <th width="10%"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of group.files">
+        <td>
+          {{ file.id }}{{file.extension}}
+        </td>
+        <td>
+          {{ file.fileName }}
+        </td>
+        <td>
+          {{ file.user.email }}
+        </td>
+        <td>
+          <a href="api/file/get-file/{{ file.id }}{{file.extension}}" download="{{file.fileName}}">
+             Download
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
